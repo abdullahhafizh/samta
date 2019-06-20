@@ -144,7 +144,7 @@ class HomeController extends Controller
                     $ids[] = $value->word_id;
                 }
 
-                $word = search($ids, $request->answer);                
+                $word = search($ids, $request->answer);
                 $this->log(response()->json($word));
 
                 if ($word == null) {
@@ -158,7 +158,7 @@ class HomeController extends Controller
                     $this->log(response()->json($response));
                     return response()->json($response);
                 }                
-                if (Word::where('kata', 'like', split($word->kata, 2).'%')->exists()) {                    
+                if (Word::where('kata', 'like', split($word->kata).'%')->exists()) {
                     $virtual = new Virtual;
                     $virtual->word_id = $word->id;
                     $virtual->save();
@@ -166,21 +166,7 @@ class HomeController extends Controller
                     $response = array(
                         'status' => 'success',
                         'answer' => $word->kata,
-                        'akhir' => split($word->kata, 2),
-                        'point' => $word->point,
-                    );
-                    $this->log(response()->json($response));
-                    return response()->json($response);
-                }
-                else if (Word::where('kata', 'like', split($word->kata, 1).'%')->exists()) {                    
-                    $virtual = new Virtual;
-                    $virtual->word_id = $word->id;
-                    $virtual->save();
-
-                    $response = array(
-                        'status' => 'success',
-                        'answer' => $word->kata,
-                        'akhir' => split($word->kata, 1),
+                        'akhir' => split($word->kata),
                         'point' => $word->point,
                     );
                     $this->log(response()->json($response));
