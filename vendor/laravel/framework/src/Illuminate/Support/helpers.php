@@ -16,26 +16,47 @@ if (! function_exists('split')) {
     {
         $split = str_split($word);
         $output = [];
+        $vocal = false;
+        $nonvocal = false;
         $now = 0;
         foreach ($split as $key => $value) {
-            if ($value == 'a' || $value == 'i' || $value == 'u' || $value == 'e' || $value == 'o' || $value == '' || $value == ' ' || $value == null) {
-                if (isset($output[$now])) {
-                    $output[$now] = $output[$now].$value;
+            if ($value == 'a' || $value == 'i' || $value == 'u' || $value == 'e' || $value == 'o') {
+                if ($vocal == false) {
+                    if (isset($output[$now])) {
+                        $output[$now] = $output[$now].$value;
+                    }
+                    else {
+                        $output[$now] = $value;
+                    }
+                    $vocal = true;
+                    $nonvocal = false;
                 }
                 else {
+                    $now++;
                     $output[$now] = $value;
+                    $nonvocal = false;
+                    $vocal = true;
                 }
-                $now++;
             }
             else {
-                if (isset($output[$now])) {
-                    $output[$now] = $output[$now].$value;
+                if ($nonvocal == false) {
+                    if (isset($output[$now])) {
+                        $output[$now] = $output[$now].$value;
+                    }
+                    else {
+                        $output[$now] = $value;
+                    }
+                    $nonvocal = true;
+                    $vocal = true;
                 }
                 else {
+                    $now++;
                     $output[$now] = $value;
+                    $vocal = false;
+                    $nonvocal = true;
                 }
             }
-        }
+        }        
         $output = array_slice($output, -1, 1, true);
         return implode(null, $output);
     }
@@ -60,7 +81,7 @@ if (! function_exists('cek')) {
 if (! function_exists('search')) {
     function search($ids, $answer)
     {
-        $output = Word::whereNotIn('id', $ids)->where('kata', 'like', split($answer).'%')->orderBy('point', 'asc')->orderBy('point', 'desc')->first();
+        $output = Word::whereNotIn('id', $ids)->where('kata', 'like', split($answer).'%')->orderBy('point', 'desc')->first();
         return $output;
     }
 }
