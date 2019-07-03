@@ -81,7 +81,7 @@ if (! function_exists('cek')) {
 if (! function_exists('search')) {
     function search($ids, $answer)
     {
-        $output = Word::whereNotIn('id', $ids)->where('kata', 'like', split($answer).'%')->orderBy('point', 'desc')->first();
+        $output = Word::whereNotIn('id', $ids)->where('kata', 'like', split($answer).'%')->orderBy('point', 'desc')->orderByRaw('CHAR_LENGTH(`kata`) desc')->first();
         return $output;
     }
 }

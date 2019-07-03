@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', 'HomeController@test')->name('home');
-// Route::get('test', 'HomeController@test')->name('test');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('test', 'HomeController@test')->name('test');
 Route::get('split', 'HomeController@split')->name('split');
 Route::post('save', 'HomeController@save')->name('save');
 Route::post('answer', 'HomeController@answer')->name('answer');

@@ -7,6 +7,7 @@ use Word;
 use Virtual;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use HTMLDomParser;
 
 class HomeController extends Controller
 {
@@ -26,24 +27,18 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        $data['count'] = Word::whereNull('awal')->orWhereNull('akhir')->count();
-        $percent = Word::whereNotNull('awal')->orWhereNotNull('akhir')->count();
-        $data['percent'] = ($percent/$data['count'])*100;
-        $data['words'] = Word::whereNull('awal')->orWhereNull('akhir')->limit(20)->get();
-        return view('home')->with($data);
-    }
-
-    public function test()
-    {
-        // $cek = cek('kamus');
-        // if($cek == '0') {
-        //     return 'Sesi berakhir. Kembali lagi besok.';
-        // }
+    {        
         Carbon::setLocale('id');
         $data['age'] = Carbon::createFromFormat('Y-m-d','2019-03-11')->diffForHumans();
         Virtual::truncate();
         return view('test')->with($data);
+    }
+
+    public function test()
+    {
+        $html = file_get_contents('https://kbbi.kemdikbud.go.id/Account/Login');
+        $data['token'] = HTMLDomParser::str_get_html($html)->find('input[name="__RequestVerificationToken"]')[0]->attr['value'];
+        return view('welcome')->with($data);
     }
 
     public function kbbi($id)

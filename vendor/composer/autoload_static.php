@@ -123,6 +123,7 @@ class ComposerStaticInit22d3677d103fc47245b9a38496d1afca
         'A' => 
         array (
             'App\\' => 4,
+            'Ammadeuss\\LaravelHtmlDomParser\\' => 31,
         ),
     );
 
@@ -313,9 +314,20 @@ class ComposerStaticInit22d3677d103fc47245b9a38496d1afca
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
+        'Ammadeuss\\LaravelHtmlDomParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ammadeuss/laravel-html-dom-parser',
+        ),
     );
 
     public static $prefixesPsr0 = array (
+        'S' => 
+        array (
+            'Sunra\\PhpSimple\\HtmlDomParser' => 
+            array (
+                0 => __DIR__ . '/..' . '/sunra/php-simple-html-dom-parser/Src',
+            ),
+        ),
         'P' => 
         array (
             'Prophecy\\' => 
@@ -348,6 +360,8 @@ class ComposerStaticInit22d3677d103fc47245b9a38496d1afca
     );
 
     public static $classMap = array (
+        'Ammadeuss\\LaravelHtmlDomParser\\Facade' => __DIR__ . '/..' . '/ammadeuss/laravel-html-dom-parser/Facade.php',
+        'Ammadeuss\\LaravelHtmlDomParser\\ServiceProvider' => __DIR__ . '/..' . '/ammadeuss/laravel-html-dom-parser/ServiceProvider.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -3162,6 +3176,7 @@ class ComposerStaticInit22d3677d103fc47245b9a38496d1afca
         'SebastianBergmann\\Timer\\RuntimeException' => __DIR__ . '/..' . '/phpunit/php-timer/src/RuntimeException.php',
         'SebastianBergmann\\Timer\\Timer' => __DIR__ . '/..' . '/phpunit/php-timer/src/Timer.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'Sunra\\PhpSimple\\HtmlDomParser' => __DIR__ . '/..' . '/sunra/php-simple-html-dom-parser/Src/Sunra/PhpSimple/HtmlDomParser.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Application.php',
         'Symfony\\Component\\Console\\CommandLoader\\CommandLoaderInterface' => __DIR__ . '/..' . '/symfony/console/CommandLoader/CommandLoaderInterface.php',
         'Symfony\\Component\\Console\\CommandLoader\\ContainerCommandLoader' => __DIR__ . '/..' . '/symfony/console/CommandLoader/ContainerCommandLoader.php',
