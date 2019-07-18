@@ -8,7 +8,7 @@
                 <div class="card-header">Beta Test ( {{ $age }} ) - Waktu : <a class="timer">0</a></div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="row" id="board">
                                     <div class="col-sm-2">

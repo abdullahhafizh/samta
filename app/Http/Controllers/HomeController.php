@@ -8,6 +8,8 @@ use Virtual;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use HTMLDomParser;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class HomeController extends Controller
 {
@@ -34,11 +36,39 @@ class HomeController extends Controller
         return view('test')->with($data);
     }
 
-    public function test()
+    public function test(Request $request)
     {
+        $ch = curl_init ("https://kbbi.kemdikbud.go.id/Account/Login");
+        curl_setopt ($ch, CURLOPT_COOKIEJAR, @tempnam("/tmp", "CURLCOOKIE")); 
+        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
+        $output = curl_exec ($ch);
+        dd($output);
         $html = file_get_contents('https://kbbi.kemdikbud.go.id/Account/Login');
-        $data['token'] = HTMLDomParser::str_get_html($html)->find('input[name="__RequestVerificationToken"]')[0]->attr['value'];
-        return view('welcome')->with($data);
+        // $data['token'] = HTMLDomParser::str_get_html($html)->find('input');
+        $token = HTMLDomParser::str_get_html($html)->find('input[name="__RequestVerificationToken"]')[0]->attr['value'];
+        $client = new Client();
+        $result = $client->request('POST','https://kbbi.kemdikbud.go.id/Account/Login',[
+            'headers' => [
+                'Host' => 'kbbi.kemdikbud.go.id',
+                'User-Agent' => $request->header('user-agent'),
+                'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+                'Accept-Language' => 'en-US,en;q=0.9',
+                'Referer' => 'https://kbbi.kemdikbud.go.id/Account/Login',
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Connection' => 'keep-alive',
+                'Cookie' => '_ga=GA1.3.1882503044.1560091172; __RequestVerificationToken='.$token.'; _gid=GA1.3.1486676393.1563376878; _gat_gtag_UA_128199158_1=1',
+                'Upgrade-Insecure-Requests' => '1',
+                'origin' => 'https://kbbi.kemdikbud.go.id',
+                'TE' => 'Trailers'
+            ],
+            'form-params' => [
+                '__RequestVerificationToken' => $token,
+                'Posel' => 'abdllhhafizh@gmail.com',
+                'KataSandi' => 'soccer163',
+                'IngatSaya' => 'false'
+            ]
+        ]);
+        dd($result);
     }
 
     public function kbbi($id)
