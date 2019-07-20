@@ -152,7 +152,7 @@
     });
 
     $(document).ready(function(){
-        $(document).on('click', '#button', function(e) {
+        $(".modal").on("hidden.bs.modal", function () {
             $('#load').hide();
             $("#answer").empty();
             $("#answer").val(cache);
@@ -245,12 +245,6 @@
                                 }
                             }
                         });
-                    }
-                    else {
-                        $('#load').hide();
-                        $("#answer").empty();
-                        $("#answer").val(cache);
-                        $("#answer").focus();
                     }
                 }
             }
