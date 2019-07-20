@@ -138,7 +138,7 @@ class HomeController extends Controller
         if(Virtual::count() <= 0)
         {
             if ($request->filled('input')) {
-                $data['words'] = Word::where('kata', 'like', $request->input.'%')->where('valid', 1)->orderBy('point', 'desc')->paginate(20);
+                $data['words'] = Word::where('kata', 'like', $request->input.'%')->where('valid', 1)->orderBy('point', 'desc')->orderBy('kata', 'asc')->paginate(20);
                 $data['words']->appends($request->only('input'));
                 $data['search'] = $request->input;
                 return view('search', $data);
