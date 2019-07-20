@@ -16,49 +16,57 @@ if (! function_exists('split')) {
     {
         $split = str_split($word);
         $output = [];
-        $vocal = false;
-        $nonvocal = false;
-        $now = 0;
-        foreach ($split as $key => $value) {
-            if ($value == 'a' || $value == 'i' || $value == 'u' || $value == 'e' || $value == 'o') {
-                if ($vocal == false) {
-                    if (isset($output[$now])) {
-                        $output[$now] = $output[$now].$value;
+        $vocal = 0;
+        $nonvocal = 0;
+        $stop = 0;
+        $eng = 0;
+        foreach (array_reverse($split) as $key => $value) {
+            if ($stop <= 0) {
+                if ($value == 'a' || $value == 'i' || $value == 'u' || $value == 'e' || $value == 'o') {
+                    if ($vocal <= 0) {
+                        $vocal++;
+                        $nonvocal = 0;
+                        $output[] = $value;
                     }
                     else {
-                        $output[$now] = $value;
+                        $stop++;
                     }
-                    $vocal = true;
-                    $nonvocal = false;
                 }
                 else {
-                    $now++;
-                    $output[$now] = $value;
-                    $nonvocal = false;
-                    $vocal = true;
-                }
-            }
-            else {
-                if ($nonvocal == false) {
-                    if (isset($output[$now])) {
-                        $output[$now] = $output[$now].$value;
+                    if ($eng >= 1 && $value == 'n') {
+                        $eng--;
+                        $nonvocal = 1;
+                        $output[] = $value;
+                    }
+                    else if ($nonvocal <= 0) {
+                        if ($value == 'g') {
+                            $eng++;
+                        }
+                        $nonvocal = 1;
+                        $output[] = $value;
                     }
                     else {
-                        $output[$now] = $value;
+                        $stop++;
                     }
-                    $nonvocal = true;
-                    $vocal = true;
-                }
-                else {
-                    $now++;
-                    $output[$now] = $value;
-                    $vocal = false;
-                    $nonvocal = true;
                 }
             }
         }        
-        $output = array_slice($output, -1, 1, true);
-        return implode(null, $output);
+        $eng = 0;
+        foreach ($output as $key => $value) {
+            if ($value == 'g') {
+                if ($key != 0) {
+                    unset($output[$key]);
+                }
+                $eng = 1;
+            }
+            if ($value == 'n' && $eng == 1) {
+                if ($key != 1) {
+                    unset($output[$key]);
+                }
+                $eng = 0;
+            }
+        }
+        return implode(array_reverse($output));
     }
 }
 

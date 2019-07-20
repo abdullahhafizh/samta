@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c1582565efe41369e5fb4409a3f79ea0",
+    "content-hash": "c4af0fc8a9741bfc4acdd9bd3caf1de8",
     "packages": [
         {
             "name": "ammadeuss/laravel-html-dom-parser",
@@ -1723,58 +1723,6 @@
                 "uuid"
             ],
             "time": "2018-07-19T23:38:55+00:00"
-        },
-        {
-            "name": "stechstudio/laravel-ssh-tunnel",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stechstudio/laravel-ssh-tunnel.git",
-                "reference": "c041dddcc8ad5eb92a40610d6e16812fe5141c29"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stechstudio/laravel-ssh-tunnel/zipball/c041dddcc8ad5eb92a40610d6e16812fe5141c29",
-                "reference": "c041dddcc8ad5eb92a40610d6e16812fe5141c29",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^5.2"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "STS\\Tunneler\\TunnelerServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "classmap": [],
-                "psr-4": {
-                    "STS\\Tunneler\\": "src"
-                },
-                "files": []
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bubba Hines",
-                    "email": "rob@stechstudio.com"
-                }
-            ],
-            "description": "Easy creation & maintenance of an SSH Tunnel for Laravel/Lumen",
-            "keywords": [
-                "laravel",
-                "lumen",
-                "mysql",
-                "ssh",
-                "tunnel"
-            ],
-            "time": "2018-05-20T19:10:27+00:00"
         },
         {
             "name": "sunra/php-simple-html-dom-parser",

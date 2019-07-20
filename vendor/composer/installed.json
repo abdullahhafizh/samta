@@ -3508,60 +3508,6 @@
         "homepage": "https://github.com/sebastianbergmann/version"
     },
     {
-        "name": "stechstudio/laravel-ssh-tunnel",
-        "version": "1.2.0",
-        "version_normalized": "1.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/stechstudio/laravel-ssh-tunnel.git",
-            "reference": "c041dddcc8ad5eb92a40610d6e16812fe5141c29"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/stechstudio/laravel-ssh-tunnel/zipball/c041dddcc8ad5eb92a40610d6e16812fe5141c29",
-            "reference": "c041dddcc8ad5eb92a40610d6e16812fe5141c29",
-            "shasum": ""
-        },
-        "require": {
-            "illuminate/support": "^5.2"
-        },
-        "time": "2018-05-20T19:10:27+00:00",
-        "type": "library",
-        "extra": {
-            "laravel": {
-                "providers": [
-                    "STS\\Tunneler\\TunnelerServiceProvider"
-                ]
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [],
-            "psr-4": {
-                "STS\\Tunneler\\": "src"
-            },
-            "files": []
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Bubba Hines",
-                "email": "rob@stechstudio.com"
-            }
-        ],
-        "description": "Easy creation & maintenance of an SSH Tunnel for Laravel/Lumen",
-        "keywords": [
-            "laravel",
-            "lumen",
-            "mysql",
-            "ssh",
-            "tunnel"
-        ]
-    },
-    {
         "name": "sunra/php-simple-html-dom-parser",
         "version": "v1.5.2",
         "version_normalized": "1.5.2.0",

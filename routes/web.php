@@ -13,6 +13,10 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('test', 'HomeController@test')->name('test');
+Route::get('seo', 'HomeController@seo')->name('seo');
+Route::get('val', 'HomeController@val')->name('val');
+Route::get('search', 'HomeController@search')->name('search');
+Route::post('search', 'HomeController@search')->name('searchPost');
 Route::get('split', 'HomeController@split')->name('split');
 Route::post('save', 'HomeController@save')->name('save');
 Route::post('answer', 'HomeController@answer')->name('answer');

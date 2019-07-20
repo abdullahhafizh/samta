@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
         Ammadeuss\LaravelHtmlDomParser\ServiceProvider::class,
-
+        
         /*
          * Application Service Providers...
          */

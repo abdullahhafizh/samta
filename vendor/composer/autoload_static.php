@@ -60,7 +60,6 @@ class ComposerStaticInit22d3677d103fc47245b9a38496d1afca
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
-            'STS\\Tunneler\\' => 13,
         ),
         'R' => 
         array (
@@ -225,10 +224,6 @@ class ComposerStaticInit22d3677d103fc47245b9a38496d1afca
         'Symfony\\Component\\Console\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
-        ),
-        'STS\\Tunneler\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/stechstudio/laravel-ssh-tunnel/src',
         ),
         'Ramsey\\Uuid\\' => 
         array (
@@ -3185,9 +3180,6 @@ class ComposerStaticInit22d3677d103fc47245b9a38496d1afca
         'Ramsey\\Uuid\\UuidFactory' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidFactory.php',
         'Ramsey\\Uuid\\UuidFactoryInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidFactoryInterface.php',
         'Ramsey\\Uuid\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidInterface.php',
-        'STS\\Tunneler\\Console\\TunnelerCommand' => __DIR__ . '/..' . '/stechstudio/laravel-ssh-tunnel/src/Console/TunnelerCommand.php',
-        'STS\\Tunneler\\Jobs\\CreateTunnel' => __DIR__ . '/..' . '/stechstudio/laravel-ssh-tunnel/src/Jobs/CreateTunnel.php',
-        'STS\\Tunneler\\TunnelerServiceProvider' => __DIR__ . '/..' . '/stechstudio/laravel-ssh-tunnel/src/TunnelerServiceProvider.php',
         'SebastianBergmann\\CodeCoverage\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
         'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Driver/Driver.php',

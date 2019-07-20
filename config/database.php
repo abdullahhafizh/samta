@@ -59,6 +59,20 @@ return [
             ]) : [],
         ],
 
+        'mysql_tunnel' => [
+            'driver'    => 'mysql',
+            'host'      => env('TUNNELER_LOCAL_ADDRESS'),
+            'port'      => env('TUNNELER_LOCAL_PORT'),
+            'database'  => env('DB_DATABASE'),
+            'username'  => env('DB_USERNAME'),
+            'password'  => env('DB_PASSWORD'),
+            'charset'   => env('DB_CHARSET', 'utf8'),
+            'collation' => env('DB_COLLATION', 'utf8_unicode_ci'),
+            'prefix'    => env('DB_PREFIX', ''),
+            'timezone'  => env('DB_TIMEZONE', '+00:00'),
+            'strict'    => env('DB_STRICT_MODE', false),
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

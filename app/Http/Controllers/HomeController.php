@@ -36,6 +36,13 @@ class HomeController extends Controller
         return view('test')->with($data);
     }
 
+    public function seo()
+    {
+        $html = file_get_contents('https://trends.google.com/trends/trendingsearches/daily?geo=ID');
+        $token = HTMLDomParser::str_get_html($html)->find('span');
+        dd($token);
+    }
+
     public function test(Request $request)
     {
         $ch = curl_init ("https://kbbi.kemdikbud.go.id/Account/Login");
@@ -116,14 +123,43 @@ class HomeController extends Controller
         $output->writeln($id);
     }
 
+    public function val()
+    {
+        $words = Word::where('point', '>=', '2')->where('valid', 1)->get();
+        $wow = [];
+        foreach ($words as $key => $value) {
+            $wow[] = $value->kata.' : '.split($value->kata);
+        }
+        dd($wow);
+    }
+
+    public function search(Request $request)
+    {
+        if(Virtual::count() <= 0)
+        {
+            if ($request->filled('input')) {
+                $words = Word::where('kata', 'like', $request->input.'%')->where('valid', 1)->orderBy('point', 'desc')->paginate(20);
+                $data['words']->appends($request->only('input'));
+                $data['search'] = $request->input;
+                return view('search', $data);
+            }
+            return view('search');
+        }
+        return 'Tidak dapat melakukan pencarian selama bermain';
+    }
+
     public function answer(Request $request)
     {
+        $split = split($request->answer);
         $this->log($request->answer);
+        $this->log($split);
         if(cek($request->answer) == '0')
         {
             $this->log("session");
             $response = array(
                 'status' => 'session',
+                'request' => $request->answer,
+                'awal' => $split,
                 'answer' => null,
                 'akhir' => null,
                 'point' => null,
@@ -147,6 +183,8 @@ class HomeController extends Controller
                 $this->log("duplikat");
                 $response = array(
                     'status' => 'duplicate',
+                    'request' => $request->answer,
+                    'awal' => $split,
                     'answer' => null,
                     'akhir' => null,
                     'point' => null,
@@ -157,6 +195,7 @@ class HomeController extends Controller
             else {
                 $this->log("baru");
                 $kalimat->point = $kalimat->point + 1;
+                $kalimat->valid = 1;
                 $kalimat->save();
 
                 $virtual = new Virtual;
@@ -170,28 +209,33 @@ class HomeController extends Controller
                 }
 
                 $word = search($ids, $request->answer);
+                $split2 = split($word->kata);
                 $this->log(response()->json($word));
 
                 if ($word == null) {
                     $this->log("menang");
                     $response = array(
                         'status' => 'win',
+                        'request' => $request->answer,
+                        'awal' => $split,
                         'answer' => null,
                         'akhir' => null,
                         'point' => null,
                     );
                     $this->log(response()->json($response));
                     return response()->json($response);
-                }                
-                if (Word::where('kata', 'like', split($word->kata).'%')->exists()) {
+                }
+                if (Word::where('kata', 'like', $split2.'%')->exists()) {
                     $virtual = new Virtual;
                     $virtual->word_id = $word->id;
                     $virtual->save();
 
                     $response = array(
                         'status' => 'success',
+                        'request' => $request->answer,
+                        'awal' => $split,
                         'answer' => $word->kata,
-                        'akhir' => split($word->kata),
+                        'akhir' => $split2,
                         'point' => $word->point,
                     );
                     $this->log(response()->json($response));
@@ -201,6 +245,8 @@ class HomeController extends Controller
                     $this->log("menang");
                     $response = array(
                         'status' => 'win',
+                        'request' => $request->answer,
+                        'awal' => $split,
                         'answer' => null,
                         'akhir' => null,
                         'point' => null,
