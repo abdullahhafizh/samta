@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Ammadeuss\\LaravelHtmlDomParser\\Facade' => $vendorDir . '/ammadeuss/laravel-html-dom-parser/Facade.php',
     'Ammadeuss\\LaravelHtmlDomParser\\ServiceProvider' => $vendorDir . '/ammadeuss/laravel-html-dom-parser/ServiceProvider.php',
+    'App\\Action' => $baseDir . '/app/Action.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',

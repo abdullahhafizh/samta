@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Word;
+use Action;
 use Virtual;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -141,6 +142,17 @@ class HomeController extends Controller
     			$data['words'] = Word::where('kata', 'like', $request->input.'%')->where('valid', 1)->orderBy('point', 'desc')->orderBy('kata', 'asc')->paginate(20);
     			$data['words']->appends($request->only('input'));
     			$data['search'] = $request->input;
+    			$aksi = new Action;
+    			$aksi->kata = $request->input;
+    			$aksi->flag = '1';
+    			$aksi->search = '1';
+    			if (count($data['words']) <= 0) {
+    				$aksi->valid = '0';
+    			}
+    			else {
+    				$aksi->valid = '1';
+    			}
+    			$aksi->save();
     			return view('search', $data);
     		}
     		return view('search');
@@ -150,6 +162,10 @@ class HomeController extends Controller
 
     public function answer(Request $request)
     {
+    	$aksi = new Action;
+    	$aksi->kata = $request->answer;
+    	$aksi->flag = '1';
+    	$aksi->search = '0';
     	$split = split($request->answer);
     	$this->log($request->answer);
     	$this->log($split);
@@ -202,13 +218,9 @@ class HomeController extends Controller
     			$virtual->word_id = $kalimat->id;
     			$virtual->save();
 
-    			$all = Virtual::all();
-    			$ids = [];
-    			foreach ($all as $key => $value) {
-    				$ids[] = $value->word_id;
-    			}
+    			$all = Virtual::select('word_id')->get();
 
-    			$word = search($ids, $request->answer);
+    			$word = search($all, $request->answer);
 
     			if ($word == null) {
     				$this->log("menang");
@@ -221,9 +233,11 @@ class HomeController extends Controller
     					'point' => null,
     				);
     				$this->log(response()->json($response));
+    				$aksi->valid = '1';
+    				$aksi->save();
     				return response()->json($response);
     			}
-    			
+
     			$split2 = split($word->kata);
     			$this->log(response()->json($word));
 
@@ -240,6 +254,14 @@ class HomeController extends Controller
     					'akhir' => $split2,
     					'point' => $word->point,
     				);
+    				$aksi->valid = '1';
+    				$aksi->save();
+    				$aksi = new Action;
+    				$aksi->kata = $word->kata;
+    				$aksi->flag = '0';
+    				$aksi->search = '0';
+    				$aksi->valid = '1';
+    				$aksi->save();
     				$this->log(response()->json($response));
     				return response()->json($response);
     			}
@@ -253,6 +275,8 @@ class HomeController extends Controller
     					'akhir' => null,
     					'point' => null,
     				);
+    				$aksi->valid = '1';
+    				$aksi->save();
     				$this->log(response()->json($response));
     				return response()->json($response);
     			}
@@ -273,6 +297,8 @@ class HomeController extends Controller
     		'akhir' => null,
     		'point' => null,
     	);
+    	$aksi->valid = '0';
+    	$aksi->save();
     	$this->log(response()->json($response));
     	return response()->json($response);
     }

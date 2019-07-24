@@ -389,6 +389,7 @@ class ComposerStaticInit22d3677d103fc47245b9a38496d1afca
     public static $classMap = array (
         'Ammadeuss\\LaravelHtmlDomParser\\Facade' => __DIR__ . '/..' . '/ammadeuss/laravel-html-dom-parser/Facade.php',
         'Ammadeuss\\LaravelHtmlDomParser\\ServiceProvider' => __DIR__ . '/..' . '/ammadeuss/laravel-html-dom-parser/ServiceProvider.php',
+        'App\\Action' => __DIR__ . '/../..' . '/app/Action.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
