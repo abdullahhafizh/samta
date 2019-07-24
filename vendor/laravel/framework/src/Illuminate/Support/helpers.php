@@ -73,6 +73,7 @@ if (! function_exists('split')) {
 if (! function_exists('cek')) {
     function cek($id)
     {
+        $id = str_replace(' ', '%20', $id);
         $html = file_get_contents('https://kbbi.kemdikbud.go.id/Cari/Hasil?frasa='.$id.'');
         if ($contains = Str::contains($html, 'Batas Sehari','Pencarian Anda telah mencapai batas maksimum dalam sehari','Pencarian Anda telah mencapai batas maksimum yang diberikan bagi pengguna tidak terdaftar dalam sehari.','Anda dapat melakukan pencarian kembali sebagai pengguna tidak terdaftar esok hari.')) {
             return '0';
