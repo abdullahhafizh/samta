@@ -146,25 +146,38 @@ class HomeController extends Controller
     	if(Virtual::count() <= 0)
     	{
     		if ($request->filled('input')) {
-    			$data['words'] = Word::where('kata', 'like', $request->input.'%')->where('valid', 1)->orderBy('point', 'desc')->orderBy('kata', 'asc')->paginate(20);
-    			$data['words']->appends($request->only('input'));
-    			$data['search'] = $request->input;
-    			$aksi = new Action;
-    			$aksi->kata = $request->input;
-    			$aksi->flag = '1';
-    			$aksi->search = '1';
-    			if (count($data['words']) <= 0) {
-    				$aksi->valid = '0';
-    			}
-    			else {
-    				$aksi->valid = '1';
-    			}
-    			$aksi->save();
-    			return view('search', $data);
-    		}
-    		return view('search');
-    	}
-    	return 'Tidak dapat melakukan pencarian selama bermain';
+
+                $cek = cek($request->input);
+                if($cek == '2') {
+                    if (!Word::where('kata', $request->input)->exists()) {
+                        $baru = new Word;
+                        $baru->kata = $request->input;
+                        $baru->point = 1;
+                        $baru->tipe_kata = "Lain-lain";
+                        $baru->valid = 2;
+                        $baru->save();
+                    }
+                }
+
+                $data['words'] = Word::where('kata', 'like', $request->input.'%')->where('valid', 1)->orderBy('point', 'desc')->orderBy('kata', 'asc')->paginate(20);
+                $data['words']->appends($request->only('input'));
+                $data['search'] = $request->input;
+                $aksi = new Action;
+                $aksi->kata = $request->input;
+                $aksi->flag = '1';
+                $aksi->search = '1';
+                if (count($data['words']) <= 0) {
+                    $aksi->valid = '0';
+                }
+                else {
+                    $aksi->valid = '1';
+                }
+                $aksi->save();
+                return view('search', $data);
+            }
+            return view('search');
+        }
+        return 'Tidak dapat melakukan pencarian selama bermain';
     }
 
     public function answer(Request $request)
@@ -174,151 +187,153 @@ class HomeController extends Controller
     	$aksi->flag = '1';
     	$aksi->search = '0';
     	$split = split($request->answer);
-    	$this->log($request->answer);
-    	$this->log($split);
-    	if(cek($request->answer) == '0')
-    	{
-    		$this->log("session");
-    		$response = array(
-    			'status' => 'session',
-    			'request' => $request->answer,
-    			'awal' => $split,
-    			'answer' => null,
-    			'akhir' => null,
-    			'point' => null,
-    		);
-    		$this->log(response()->json($response));
-    		return response()->json($response);
-    	}
-    	$id = 0;
-    	if(cek($request->answer) == '2') {
-    		$this->log("lolos kbbi");
-    		if (!Word::where('kata', $request->answer)->exists()) {
-    			$baru = new Word;
-    			$baru->kata = $request->answer;
-    			$baru->point = 1;
-    			$baru->tipe_kata = "Lain-lain";
-    			$baru->valid = 2;
-    			$baru->save();
-    		}
-    		$kalimat = Word::where('kata', $request->answer)->first();
-    		if (Virtual::where('word_id', $kalimat->id)->exists()) {
-    			$this->log("duplikat");
-    			$response = array(
-    				'status' => 'duplicate',
-    				'request' => $request->answer,
-    				'awal' => $split,
-    				'answer' => null,
-    				'akhir' => null,
-    				'point' => null,
-    			);
-    			$this->log(response()->json($response));
-    			return response()->json($response);
-    		}
-    		else {
-    			$this->log("baru");
-    			$kalimat->point = $kalimat->point + 1;
-    			$kalimat->valid = 1;
-    			$kalimat->save();
+        $cek = cek($request->answer);
 
-    			$virtual = new Virtual;
-    			$virtual->word_id = $kalimat->id;
-    			$virtual->save();
+        $this->log($request->answer);
+        $this->log($split);
+        if($cek == '0')
+        {
+          $this->log("session");
+          $response = array(
+             'status' => 'session',
+             'request' => $request->answer,
+             'awal' => $split,
+             'answer' => null,
+             'akhir' => null,
+             'point' => null,
+         );
+          $this->log(response()->json($response));
+          return response()->json($response);
+      }
+      $id = 0;
+      if($cek == '2') {
+          $this->log("lolos kbbi");
+          if (!Word::where('kata', $request->answer)->exists()) {
+             $baru = new Word;
+             $baru->kata = $request->answer;
+             $baru->point = 1;
+             $baru->tipe_kata = "Lain-lain";
+             $baru->valid = 2;
+             $baru->save();
+         }
+         $kalimat = Word::where('kata', $request->answer)->first();
+         if (Virtual::where('word_id', $kalimat->id)->exists()) {
+             $this->log("duplikat");
+             $response = array(
+                'status' => 'duplicate',
+                'request' => $request->answer,
+                'awal' => $split,
+                'answer' => null,
+                'akhir' => null,
+                'point' => null,
+            );
+             $this->log(response()->json($response));
+             return response()->json($response);
+         }
+         else {
+             $this->log("baru");
+             $kalimat->point = $kalimat->point + 1;
+             $kalimat->valid = 1;
+             $kalimat->save();
 
-    			$all = Virtual::select('word_id')->get();
+             $virtual = new Virtual;
+             $virtual->word_id = $kalimat->id;
+             $virtual->save();
 
-    			$word = search($all, $request->answer);
+             $all = Virtual::select('word_id')->get();
 
-    			if ($word == null) {
-    				$this->log("menang");
-    				$response = array(
-    					'status' => 'win',
-    					'request' => $request->answer,
-    					'awal' => $split,
-    					'answer' => null,
-    					'akhir' => null,
-    					'point' => null,
-    				);
-    				$this->log(response()->json($response));
-    				$aksi->valid = '1';
-    				$aksi->save();
-    				return response()->json($response);
-    			}
+             $word = search($all, $request->answer);
 
-    			$split2 = split($word->kata);
-    			$this->log(response()->json($word));
+             if ($word == null) {
+                $this->log("menang");
+                $response = array(
+                   'status' => 'win',
+                   'request' => $request->answer,
+                   'awal' => $split,
+                   'answer' => null,
+                   'akhir' => null,
+                   'point' => null,
+               );
+                $this->log(response()->json($response));
+                $aksi->valid = '1';
+                $aksi->save();
+                return response()->json($response);
+            }
 
-    			if (Word::where('kata', 'like', $split2.'%')->exists()) {
-    				$virtual = new Virtual;
-    				$virtual->word_id = $word->id;
-    				$virtual->save();
+            $split2 = split($word->kata);
+            $this->log(response()->json($word));
 
-    				$response = array(
-    					'status' => 'success',
-    					'request' => $request->answer,
-    					'awal' => $split,
-    					'answer' => $word->kata,
-    					'akhir' => $split2,
-    					'point' => $word->point,
-    				);
-    				$aksi->valid = '1';
-    				$aksi->save();
-    				$aksi = new Action;
-    				$aksi->kata = $word->kata;
-    				$aksi->flag = '0';
-    				$aksi->search = '0';
-    				$aksi->valid = '1';
-    				$aksi->save();
-    				$this->log(response()->json($response));
-    				return response()->json($response);
-    			}
-    			else {
-    				$this->log("menang");
-    				$response = array(
-    					'status' => 'win',
-    					'request' => $request->answer,
-    					'awal' => $split,
-    					'answer' => null,
-    					'akhir' => null,
-    					'point' => null,
-    				);
-    				$aksi->valid = '1';
-    				$aksi->save();
-    				$this->log(response()->json($response));
-    				return response()->json($response);
-    			}
-    		}
-    	}
-    	else {
-    		if (Word::where('kata', $request->answer)->exists()) {
-    			$aidi = Word::where('kata', $request->answer)->value('id');
-    			$kuba = Word::find($aidi);
-    			$kuba->valid = 1;
-    			$kuba->save();
-    		}
-    	}
-    	$this->log("tidak lolos kbbi");
-    	$response = array(
-    		'status' => 'error',
-    		'answer' => null,
-    		'akhir' => null,
-    		'point' => null,
-    	);
-    	$aksi->valid = '0';
-    	$aksi->save();
-    	$this->log(response()->json($response));
-    	return response()->json($response);
+            if (Word::where('kata', 'like', $split2.'%')->exists()) {
+                $virtual = new Virtual;
+                $virtual->word_id = $word->id;
+                $virtual->save();
+
+                $response = array(
+                   'status' => 'success',
+                   'request' => $request->answer,
+                   'awal' => $split,
+                   'answer' => $word->kata,
+                   'akhir' => $split2,
+                   'point' => $word->point,
+               );
+                $aksi->valid = '1';
+                $aksi->save();
+                $aksi = new Action;
+                $aksi->kata = $word->kata;
+                $aksi->flag = '0';
+                $aksi->search = '0';
+                $aksi->valid = '1';
+                $aksi->save();
+                $this->log(response()->json($response));
+                return response()->json($response);
+            }
+            else {
+                $this->log("menang");
+                $response = array(
+                   'status' => 'win',
+                   'request' => $request->answer,
+                   'awal' => $split,
+                   'answer' => null,
+                   'akhir' => null,
+                   'point' => null,
+               );
+                $aksi->valid = '1';
+                $aksi->save();
+                $this->log(response()->json($response));
+                return response()->json($response);
+            }
+        }
     }
+    else {
+      if (Word::where('kata', $request->answer)->exists()) {
+         $aidi = Word::where('kata', $request->answer)->value('id');
+         $kuba = Word::find($aidi);
+         $kuba->valid = 1;
+         $kuba->save();
+     }
+ }
+ $this->log("tidak lolos kbbi");
+ $response = array(
+  'status' => 'error',
+  'answer' => null,
+  'akhir' => null,
+  'point' => null,
+);
+ $aksi->valid = '0';
+ $aksi->save();
+ $this->log(response()->json($response));
+ return response()->json($response);
+}
 
-    public function save(Request $request)
-    {
-    	foreach ($request->id as $key => $value) {
-    		$table = Word::find($request->id[$key]);
-    		$table->awal = $request->awal[$key];
-    		$table->akhir = $request->akhir[$key];
-    		$table->save();
-    	}
+public function save(Request $request)
+{
+   foreach ($request->id as $key => $value) {
+      $table = Word::find($request->id[$key]);
+      $table->awal = $request->awal[$key];
+      $table->akhir = $request->akhir[$key];
+      $table->save();
+  }
 
-    	return back();
-    }
+  return back();
+}
 }
