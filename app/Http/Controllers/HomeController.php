@@ -137,8 +137,27 @@ class HomeController extends Controller
 
     public function report()
     {
-    	$satu = Action::select('kata', DB::raw('count(`kata`) as total'))->where('flag', '1')->where('search', '0')->where('valid', '1')->groupBy('kata')->orderBy('total', 'desc')->orderBy('kata', 'asc')->get();
-    	dd($satu);
+    	$data['satu'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '1' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+    	$data['dua'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+        $data['tiga'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+
+        $data['empat'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '1' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+        $data['lima'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '1' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+        $data['enam'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '1' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+
+        $data['tujuh'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '0' AND `search` = '0' AND `valid` = '1' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+        $data['delapan'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '0' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+        $data['sembilan'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '0' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+
+        $data['sepuluh'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '0' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+        $data['sebelas'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '0' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+        $data['duabelas'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '0' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+
+        $data['tigabelas'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '0' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+        $data['empatbelas'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '0' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+        $data['limabelas'] = collect(DB::select("SELECT `kata`, COUNT(`kata`) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '0' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+
+        return view('report', $data);
     }
 
     public function search(Request $request)
