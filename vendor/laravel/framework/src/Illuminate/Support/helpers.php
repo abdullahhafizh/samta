@@ -52,20 +52,20 @@ if (! function_exists('split')) {
             }
         }        
         $eng = 0;
-        foreach ($output as $key => $value) {
-            if ($value == 'g') {
-                if ($key != 0) {
-                    unset($output[$key]);
-                }
-                $eng = 1;
-            }
-            if ($value == 'n' && $eng == 1) {
-                if ($key != 1) {
-                    unset($output[$key]);
-                }
-                $eng = 0;
-            }
-        }
+        // foreach ($output as $key => $value) {
+        //     if ($value == 'g') {
+        //         if ($key != 0) {
+        //             unset($output[$key]);
+        //         }
+        //         $eng = 1;
+        //     }
+        //     if ($value == 'n' && $eng == 1) {
+        //         if ($key != 1) {
+        //             unset($output[$key]);
+        //         }
+        //         $eng = 0;
+        //     }
+        // }
         return implode(array_reverse($output));
     }
 }

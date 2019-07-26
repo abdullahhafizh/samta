@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 use Word;
 use Action;
 use Virtual;
@@ -132,6 +133,12 @@ class HomeController extends Controller
     		$wow[] = $value->kata.' : '.split($value->kata);
     	}
     	dd($wow);
+    }
+
+    public function report()
+    {
+    	$satu = Action::select('kata', DB::raw('count(`kata`) as total'))->where('flag', '1')->where('search', '0')->where('valid', '1')->groupBy('kata')->orderBy('total', 'desc')->orderBy('kata', 'asc')->get();
+    	dd($satu);
     }
 
     public function search(Request $request)

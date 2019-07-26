@@ -37,6 +37,9 @@
                         <li class="nav-item {{ Request::segment(1) == 'search' ? 'active' : null }}">
                             <a class="nav-link" href="{{ route('search') }}">{{ __('Search') }}</a>
                         </li>
+                        <li class="nav-item {{ Request::segment(1) == 'report' ? 'active' : null }}">
+                            <a class="nav-link" href="{{ route('report') }}">{{ __('Report') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
