@@ -137,7 +137,7 @@ class HomeController extends Controller
 
     public function report()
     {
-    	$data['satu'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '1' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+    	// $data['satu'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '1' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
         $data['satu'] = DB::table('actions')->selectRaw('kata, count(*) as total')->where('flag', '1')->where('search', '0')->where('valid', '1')->groupBy('kata')->orderBy('total', 'desc')->orderBy('created_at', 'asc')->orderBy('updated_at', 'asc')->orderBy('kata', 'asc')->limit(10)->get();
         dd($data);
     	// $data['dua'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
