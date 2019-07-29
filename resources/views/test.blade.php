@@ -26,6 +26,7 @@
         </div>
     </div>
 </div>
+<div id="append"></div>
 <div class="modal duplicate" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -157,6 +158,7 @@
             $("#answer").empty();
             $("#answer").val(cache);
             $("#answer").focus();
+            $("#append").empty();
         });
 
         $(document).on('click', '#end', function(e) {

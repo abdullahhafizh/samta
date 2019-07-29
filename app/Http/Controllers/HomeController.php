@@ -138,24 +138,26 @@ class HomeController extends Controller
     public function report()
     {
     	$data['satu'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '1' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
-    	$data['dua'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
-        $data['tiga'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+        $data['satu'] = DB::table('actions')->selectRaw('kata, count(*) as total')->where('flag', '1')->where('search', '0')->where('valid', '1')->groupBy('kata')->orderBy('total', 'desc')->orderBy('created_at', 'asc')->orderBy('updated_at', 'asc')->orderBy('kata', 'asc')->limit(10)->get();
+        dd($data);
+    	// $data['dua'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['tiga'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
 
-        $data['empat'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '1' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
-        $data['lima'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '1' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
-        $data['enam'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '1' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['empat'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '1' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['lima'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '1' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['enam'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '1' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
 
-        $data['tujuh'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '0' AND `search` = '0' AND `valid` = '1' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
-        $data['delapan'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '0' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
-        $data['sembilan'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '0' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['tujuh'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '0' AND `search` = '0' AND `valid` = '1' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['delapan'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '0' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['sembilan'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '0' AND `search` = '0' AND `valid` = '1' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
 
-        $data['sepuluh'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '0' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
-        $data['sebelas'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '0' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
-        $data['duabelas'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '0' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['sepuluh'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '0' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['sebelas'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '0' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['duabelas'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '0' AND `valid` = '0' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
 
-        $data['tigabelas'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '0' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
-        $data['empatbelas'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '0' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
-        $data['limabelas'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '0' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['tigabelas'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '0' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['empatbelas'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '0' AND `created_at` >= '".date('Y')."-01-01 00:00:00' AND `created_at` <= '".date('Y')."-12-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
+     //    $data['limabelas'] = collect(DB::select("SELECT `kata`, COUNT(*) AS `total` FROM `actions` WHERE `flag` = '1' AND `search` = '1' AND `valid` = '0' AND `created_at` >= '".date('Y-m')."-01 00:00:00' AND `created_at` <= '".date('Y-m')."-31 23:59:59' GROUP BY `kata` ORDER BY `total` DESC, `created_at` ASC, `updated_at` ASC, `kata` ASC LIMIT 10"));
 
         return view('report', $data);
     }
@@ -212,147 +214,147 @@ class HomeController extends Controller
         $this->log($split);
         if($cek == '0')
         {
-          $this->log("session");
-          $response = array(
-             'status' => 'session',
-             'request' => $request->answer,
-             'awal' => $split,
-             'answer' => null,
-             'akhir' => null,
-             'point' => null,
-         );
-          $this->log(response()->json($response));
-          return response()->json($response);
-      }
-      $id = 0;
-      if($cek == '2') {
-          $this->log("lolos kbbi");
-          if (!Word::where('kata', $request->answer)->exists()) {
-             $baru = new Word;
-             $baru->kata = $request->answer;
-             $baru->point = 1;
-             $baru->tipe_kata = "Lain-lain";
-             $baru->valid = 2;
-             $baru->save();
-         }
-         $kalimat = Word::where('kata', $request->answer)->first();
-         if (Virtual::where('word_id', $kalimat->id)->exists()) {
-             $this->log("duplikat");
-             $response = array(
-                'status' => 'duplicate',
+            $this->log("session");
+            $response = array(
+                'status' => 'session',
                 'request' => $request->answer,
                 'awal' => $split,
                 'answer' => null,
                 'akhir' => null,
                 'point' => null,
             );
-             $this->log(response()->json($response));
-             return response()->json($response);
-         }
-         else {
-             $this->log("baru");
-             $kalimat->point = $kalimat->point + 1;
-             $kalimat->valid = 1;
-             $kalimat->save();
-
-             $virtual = new Virtual;
-             $virtual->word_id = $kalimat->id;
-             $virtual->save();
-
-             $all = Virtual::select('word_id')->get();
-
-             $word = search($all, $request->answer);
-
-             if ($word == null) {
-                $this->log("menang");
-                $response = array(
-                   'status' => 'win',
-                   'request' => $request->answer,
-                   'awal' => $split,
-                   'answer' => null,
-                   'akhir' => null,
-                   'point' => null,
-               );
-                $this->log(response()->json($response));
-                $aksi->valid = '1';
-                $aksi->save();
-                return response()->json($response);
+            $this->log(response()->json($response));
+            return response()->json($response);
+        }
+        $id = 0;
+        if($cek == '2') {
+            $this->log("lolos kbbi");
+            if (!Word::where('kata', $request->answer)->exists()) {
+                $baru = new Word;
+                $baru->kata = $request->answer;
+                $baru->point = 1;
+                $baru->tipe_kata = "Lain-lain";
+                $baru->valid = 2;
+                $baru->save();
             }
-
-            $split2 = split($word->kata);
-            $this->log(response()->json($word));
-
-            if (Word::where('kata', 'like', $split2.'%')->exists()) {
-                $virtual = new Virtual;
-                $virtual->word_id = $word->id;
-                $virtual->save();
-
+            $kalimat = Word::where('kata', $request->answer)->first();
+            if (Virtual::where('word_id', $kalimat->id)->exists()) {
+                $this->log("duplikat");
                 $response = array(
-                   'status' => 'success',
-                   'request' => $request->answer,
-                   'awal' => $split,
-                   'answer' => $word->kata,
-                   'akhir' => $split2,
-                   'point' => $word->point,
-               );
-                $aksi->valid = '1';
-                $aksi->save();
-                $aksi = new Action;
-                $aksi->kata = $word->kata;
-                $aksi->flag = '0';
-                $aksi->search = '0';
-                $aksi->valid = '1';
-                $aksi->save();
+                    'status' => 'duplicate',
+                    'request' => $request->answer,
+                    'awal' => $split,
+                    'answer' => null,
+                    'akhir' => null,
+                    'point' => null,
+                );
                 $this->log(response()->json($response));
                 return response()->json($response);
             }
             else {
-                $this->log("menang");
-                $response = array(
-                   'status' => 'win',
-                   'request' => $request->answer,
-                   'awal' => $split,
-                   'answer' => null,
-                   'akhir' => null,
-                   'point' => null,
-               );
-                $aksi->valid = '1';
-                $aksi->save();
-                $this->log(response()->json($response));
-                return response()->json($response);
+                $this->log("baru");
+                $kalimat->point = $kalimat->point + 1;
+                $kalimat->valid = 1;
+                $kalimat->save();
+
+                $virtual = new Virtual;
+                $virtual->word_id = $kalimat->id;
+                $virtual->save();
+
+                $all = Virtual::select('word_id')->get();
+
+                $word = search($all, $request->answer);
+
+                if ($word == null) {
+                    $this->log("menang");
+                    $response = array(
+                        'status' => 'win',
+                        'request' => $request->answer,
+                        'awal' => $split,
+                        'answer' => null,
+                        'akhir' => null,
+                        'point' => null,
+                    );
+                    $this->log(response()->json($response));
+                    $aksi->valid = '1';
+                    $aksi->save();
+                    return response()->json($response);
+                }
+
+                $split2 = split($word->kata);
+                $this->log(response()->json($word));
+
+                if (Word::where('kata', 'like', $split2.'%')->exists()) {
+                    $virtual = new Virtual;
+                    $virtual->word_id = $word->id;
+                    $virtual->save();
+
+                    $response = array(
+                        'status' => 'success',
+                        'request' => $request->answer,
+                        'awal' => $split,
+                        'answer' => $word->kata,
+                        'akhir' => $split2,
+                        'point' => $word->point,
+                    );
+                    $aksi->valid = '1';
+                    $aksi->save();
+                    $aksi = new Action;
+                    $aksi->kata = $word->kata;
+                    $aksi->flag = '0';
+                    $aksi->search = '0';
+                    $aksi->valid = '1';
+                    $aksi->save();
+                    $this->log(response()->json($response));
+                    return response()->json($response);
+                }
+                else {
+                    $this->log("menang");
+                    $response = array(
+                        'status' => 'win',
+                        'request' => $request->answer,
+                        'awal' => $split,
+                        'answer' => null,
+                        'akhir' => null,
+                        'point' => null,
+                    );
+                    $aksi->valid = '1';
+                    $aksi->save();
+                    $this->log(response()->json($response));
+                    return response()->json($response);
+                }
             }
         }
+        else {
+            if (Word::where('kata', $request->answer)->exists()) {
+                $aidi = Word::where('kata', $request->answer)->value('id');
+                $kuba = Word::find($aidi);
+                $kuba->valid = 1;
+                $kuba->save();
+            }
+        }
+        $this->log("tidak lolos kbbi");
+        $response = array(
+            'status' => 'error',
+            'answer' => null,
+            'akhir' => null,
+            'point' => null,
+        );
+        $aksi->valid = '0';
+        $aksi->save();
+        $this->log(response()->json($response));
+        return response()->json($response);
     }
-    else {
-      if (Word::where('kata', $request->answer)->exists()) {
-         $aidi = Word::where('kata', $request->answer)->value('id');
-         $kuba = Word::find($aidi);
-         $kuba->valid = 1;
-         $kuba->save();
-     }
- }
- $this->log("tidak lolos kbbi");
- $response = array(
-  'status' => 'error',
-  'answer' => null,
-  'akhir' => null,
-  'point' => null,
-);
- $aksi->valid = '0';
- $aksi->save();
- $this->log(response()->json($response));
- return response()->json($response);
-}
 
-public function save(Request $request)
-{
-   foreach ($request->id as $key => $value) {
-      $table = Word::find($request->id[$key]);
-      $table->awal = $request->awal[$key];
-      $table->akhir = $request->akhir[$key];
-      $table->save();
-  }
+    public function save(Request $request)
+    {
+        foreach ($request->id as $key => $value) {
+            $table = Word::find($request->id[$key]);
+            $table->awal = $request->awal[$key];
+            $table->akhir = $request->akhir[$key];
+            $table->save();
+        }
 
-  return back();
-}
+        return back();
+    }
 }
