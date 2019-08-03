@@ -11,6 +11,486 @@ use Illuminate\Support\HigherOrderTapProxy;
 use Dotenv\Environment\Adapter\EnvConstAdapter;
 use Dotenv\Environment\Adapter\ServerConstAdapter;
 
+if (! function_exists('data_satu')) {
+    function data_satu()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/satu.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_dua')) {
+    function data_dua()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/dua.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_tiga')) {
+    function data_tiga()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/tiga.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_empat')) {
+    function data_empat()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/empat.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_lima')) {
+    function data_lima()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/lima.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_enam')) {
+    function data_enam()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/enam.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_tujuh')) {
+    function data_tujuh()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/tujuh.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_delapan')) {
+    function data_delapan()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/delapan.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_sembilan')) {
+    function data_sembilan()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/sembilan.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_sepuluh')) {
+    function data_sepuluh()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/sepuluh.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_sebelas')) {
+    function data_sebelas()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/sebelas.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_duabelas')) {
+    function data_duabelas()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/duabelas.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_tigabelas')) {
+    function data_tigabelas()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/tigabelas.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_empatbelas')) {
+    function data_empatbelas()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/empatbelas.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
+if (! function_exists('data_limabelas')) {
+    function data_limabelas()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://hifiez.com/limabelas.php",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: c70904d1-93ad-7fe1-2dc1-b455469b0cf7"
+        ),
+      ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            return json_decode($response);
+        }
+    }
+}
+
 if (! function_exists('split')) {
     function split($word)
     {
