@@ -45,7 +45,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-4 col-sm-12 form-group">
+						<!-- <div class="col-md-4 col-sm-12 form-group">
 							<div class="card">
 								<div class="card-header"><center><h3><b>Tahun Ini</b></h3></center></div>
 								<div class="card-body">
@@ -391,7 +391,7 @@
 									</table>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 					</div>
 				</div>
