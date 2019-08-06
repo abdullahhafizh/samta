@@ -14,6 +14,7 @@
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('test', 'HomeController@test')->name('test');
 Route::get('donation', 'HomeController@donation')->name('donation');
+Route::get('app', 'HomeController@app')->name('app');
 Route::get('seo', 'HomeController@seo')->name('seo');
 Route::get('val', 'HomeController@val')->name('val');
 Route::get('search', 'HomeController@search')->name('search');

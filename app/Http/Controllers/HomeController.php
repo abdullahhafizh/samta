@@ -50,6 +50,11 @@ class HomeController extends Controller
         return view('donation');
     }
 
+    public function app()
+    {
+        return response()->download(storage_path("../public/samta.apk"));
+    }
+
     public function test(Request $request)
     {
     	$ch = curl_init ("https://kbbi.kemdikbud.go.id/Account/Login");
